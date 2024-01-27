@@ -5,7 +5,7 @@ const Home = () => {
     <>
       <div className='h-screen flex items-center justify-center bg-cyan'>
         <h1 className='text-2xl'>
-          Client Page
+          Creator Page
         </h1>
       </div>
     </>
