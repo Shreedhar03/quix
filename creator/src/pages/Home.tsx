@@ -1,6 +1,9 @@
-
-import Navbar from '@/components/Navbar'
 import React from 'react'
+import Navbar from '@/components/Navbar'
+import home from '../assets/home.svg'
+import { Link } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+import Logo from '@/components/Logo'
 
 const Home = () => {
   const [active, setActive] = React.useState(1)
@@ -16,15 +19,12 @@ const Home = () => {
   }, [active])
 
   return (
-    <section className='h-screen bg-blue'>
+    <section className='h-screen bg-blue relative'>
       <Navbar />
       <section className='flex flex-col justify-center items-center gap-12 h-[calc(100vh-75px)] mx-6'>
-        <div className='flex flex-col items-center gap-4'>
-          <div className='flex items-center gap-3'>
-            <div className='w-12 h-12 bg-peach rounded-full text-sm flex items-center justify-center'>LOGO</div>
-            <h1 className='text-4xl font-bold text-slate-200 dm-serif'>QuiX</h1>
-          </div>
-          <p className='text-slate-200 text-4xl dm-serif'>Gain valuable insights from everyone around you with
+        <div className='flex flex-col items-center gap-6'>
+          <Logo variant='funcky' />
+          <p className='text-slate-200 text-4xl dm-serif text-center'>Gain valuable insights from everyone around the world with
           </p>
           <p className='text-slate-200 text-5xl text-center'>
             <span className='text-peach font-bold h-[54px] overflow-clip flex flex-col self-center'>
@@ -34,10 +34,11 @@ const Home = () => {
             </span>
           </p>
         </div>
-        <div className='mt-4'>
-          <button className='bg-cyan hover:bg-cyan/70 font-bold rounded-lg text-black px-4 py-2'>Get Started 🚀</button>
-        </div>
+        <Button className='mt-4'>
+          <Link to={'/creation'} className='font-bold rounded-lg px-4 py-2'>Get Started 🚀</Link>
+        </Button>
       </section>
+      {/* <img src={home} alt='home' className='object-cover absolute bottom-12 left-12 w-56' /> */}
     </section>
   )
 }
