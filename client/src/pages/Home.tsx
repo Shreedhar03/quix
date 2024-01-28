@@ -1,12 +1,12 @@
+import Navbar from '@/components/Navbar'
 import React from 'react'
 
 const Home = () => {
   return (
     <>
-      <div className='h-screen flex items-center justify-center bg-cyan'>
-        <h1 className='text-2xl'>
-          Client Page
-        </h1>
+      <Navbar />
+      <div className='h-screen flex justify-center bg-blue'>
+
       </div>
     </>
   )
