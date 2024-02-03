@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Logo from './Logo'
 
 const CreationNav = () => {
     const [navisible, setNavisible] = React.useState(false)

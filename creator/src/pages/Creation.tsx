@@ -1,13 +1,15 @@
-import CreationNav from '@/components/CreationNav'
 import Logo from '@/components/Logo'
 import Question from '@/components/Question'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { InfoIcon } from 'lucide-react'
-import React, { useEffect } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 import '../index.css'
+import CreationNav from '@/components/creation/CreationNav'
+import { Draggable, DragDropContext, Droppable } from 'react-beautiful-dnd'
+import Settings from '@/components/creation/Settings'
 
 const driverObj = driver({
     popoverClass: 'driverjs-theme',
@@ -51,15 +53,35 @@ const driverObj = driver({
     ]
 })
 
+const getQuestions = () => {
+    return JSON.parse(localStorage.getItem('questions') || '[]')
+}
 
-
+type Question = {
+    id: number,
+    content: string
+}
 const Creation = () => {
-    const options = ['Randomize question order', 'Reveal correct answer', 'Show Leaderboard after each question']
-    const [noOfQuestions, setNoOfQuestions] = React.useState(0)
+
+    const [questions, setQuestions] = React.useState<Question[]>(getQuestions())
     useEffect(() => {
         localStorage.getItem('tourCompleted') || driverObj.drive()
         localStorage.setItem('tourCompleted', 'true')
     }, []);
+
+    const onDragEnd = (result: any) => {
+        if (!result.destination) {
+            return;
+        }
+        const items = Array.from(questions);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+        setQuestions(items);
+    }
+    useEffect(()=>{
+        console.log(questions)
+        localStorage.setItem('questions',JSON.stringify(questions))
+    },[questions])
     return (
         <>
             <CreationNav />
@@ -73,21 +95,35 @@ const Creation = () => {
                             placeholder='Enter quiz title'
                             className='focus:outline-none text-blue dm-serif font-medium border-b-2 focus:border-b-blue border-b-blue/50 text-4xl p-2 placeholder:text-blue/70 w-11/12' />
                         {/* ==========Questions========== */}
-                        <div className='mt-6 flex flex-col gap-3 z-40'>
-                            {
-                                Array.from({ length: noOfQuestions }).map((_, i) => (
-                                    <Question key={i} index={i} />
-                                ))
-                            }
-                        </div>
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            <Droppable droppableId='questions'>
+                                {
+                                    (provided) => (
+                                        <div
+                                            ref={provided.innerRef}
+                                            {...provided.droppableProps}
+                                            className='mt-6 flex flex-col gap-3 z-40'>
+                                            {
+                                                questions.map((div, i) => (
+                                                    <Question key={i} index={i} title={div.content}/>
+                                                ))
+                                            }
+                                            {provided.placeholder}
+                                        </div>
+                                    )
+
+                                }
+                            </Droppable>
+                        </DragDropContext>
                         <Button type='button' variant={'secondary'} className='mt-4 w-full font-semibold'
                             id='add-question'
                             onClick={
-                                () => setNoOfQuestions(noOfQuestions + 1)
+                                () => setQuestions([...questions, { id: questions.length + 1, content: `Question ${questions.length + 1}` }])
                             }>Add Question +</Button>
                     </form>
 
                     <aside className='flex flex-col gap-5 sm:sticky sm:top-12'>
+                        {/* Start QuiX */}
                         <div className='bg-cyan/30 p-4 rounded-xl border border-foreground'>
                             <div className='flex items-center gap-2 mt-2' id='presentation-mode'>
                                 <Switch className='w-10 h-6 data-[state=checked]:bg-black data-[state=unchecked]:bg-black/50' />
@@ -99,21 +135,7 @@ const Creation = () => {
                             <Button className='mt-4 w-full' id='go-live'>Go Live</Button>
                         </div>
                         {/* More Options */}
-                        <div className='bg-peach/30 p-4 rounded-xl border border-foreground' id='settings'>
-                            {
-                                options.map((option, i) => (
-                                    <div className='flex items-center justify-between gap-2 mt-2' key={i}>
-                                        <div className='flex items-center gap-2'>
-                                            <Switch className='w-10 h-6 data-[state=checked]:bg-black data-[state=unchecked]:bg-black/50' />
-                                            <p className='w-36 text-sm font-medium'>
-                                                {option}
-                                            </p>
-                                        </div>
-                                        <InfoIcon className='text-slate-700' />
-                                    </div>
-                                ))
-                            }
-                        </div>
+                        <Settings />
                     </aside>
                 </div>
 
