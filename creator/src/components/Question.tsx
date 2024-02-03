@@ -1,10 +1,4 @@
 import React from 'react'
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
 import reorder from '../assets/reorder.svg'
 import { X } from 'lucide-react'
 import { Checkbox } from './ui/checkbox'

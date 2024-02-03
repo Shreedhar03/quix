@@ -1,4 +1,3 @@
-import React from 'react'
 import { Switch } from '../ui/switch'
 import { InfoIcon } from 'lucide-react'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import funcky from '../assets/logo-funcky.svg'
 import monochrome from '../assets/logo-monochrome.svg'
 import coloured from '../assets/logo-coloured.svg'

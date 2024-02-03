@@ -3,12 +3,12 @@ import Question from '@/components/Question'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { InfoIcon } from 'lucide-react'
-import React, { ReactNode, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 import '../index.css'
 import CreationNav from '@/components/creation/CreationNav'
-import { Draggable, DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import Settings from '@/components/creation/Settings'
 
 const driverObj = driver({

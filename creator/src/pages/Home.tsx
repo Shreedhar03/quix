@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '@/components/Navbar'
-import home from '../assets/home.svg'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import Logo from '@/components/Logo'
