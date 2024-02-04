@@ -18,35 +18,35 @@ const driverObj = driver({
         {
             element: '#quiz-title',
             popover: {
-                title: 'Quiz Title',
+                title: 'Quiz Title✨',
                 description: 'Craft an irresistible title for your quiz here.'
             }
         },
         {
             element: '#add-question',
             popover: {
-                title: 'Add Question',
+                title: 'Add Question➕',
                 description: 'Click to effortlessly add a new engaging question.'
             }
         },
         {
             element: '#presentation-mode',
             popover: {
-                title: 'Presentation Mode',
+                title: 'Presentation Mode🎦',
                 description: 'Toggle for a seamless and captivating presentation.'
             }
         },
         {
             element: '#settings',
             popover: {
-                title: 'Settings',
+                title: 'Settings⚙️',
                 description: 'Customize with a click – tailor the experience effortlessly.'
             }
         },
         {
             element: '#go-live',
             popover: {
-                title: 'Go Live',
+                title: 'Go Live🚀',
                 description: 'Launch your quiz into the spotlight with just a click.'
             }
         }
@@ -65,8 +65,11 @@ const Creation = () => {
 
     const [questions, setQuestions] = React.useState<Question[]>(getQuestions())
     useEffect(() => {
-        localStorage.getItem('tourCompleted') || driverObj.drive()
-        localStorage.setItem('tourCompleted', 'true')
+        setTimeout(() => {
+            localStorage.getItem('tourCompleted') || driverObj.drive()
+            // driverObj.drive()
+            localStorage.setItem('tourCompleted', 'true')
+        }, 1500);
     }, []);
 
     const onDragEnd = (result: any) => {
@@ -78,10 +81,10 @@ const Creation = () => {
         items.splice(result.destination.index, 0, reorderedItem);
         setQuestions(items);
     }
-    useEffect(()=>{
+    useEffect(() => {
         console.log(questions)
-        localStorage.setItem('questions',JSON.stringify(questions))
-    },[questions])
+        localStorage.setItem('questions', JSON.stringify(questions))
+    }, [questions])
     return (
         <>
             <CreationNav />
@@ -105,7 +108,7 @@ const Creation = () => {
                                             className='mt-6 flex flex-col gap-3 z-40'>
                                             {
                                                 questions.map((div, i) => (
-                                                    <Question key={i} index={i} title={div.content}/>
+                                                    <Question key={i} index={i} title={div.content} />
                                                 ))
                                             }
                                             {provided.placeholder}
@@ -124,6 +127,7 @@ const Creation = () => {
 
                     <aside className='flex flex-col gap-5 sm:sticky sm:top-12'>
                         {/* Start QuiX */}
+                        
                         <div className='bg-cyan/30 p-4 rounded-xl border border-foreground'>
                             <div className='flex items-center gap-2 mt-2' id='presentation-mode'>
                                 <Switch className='w-10 h-6 data-[state=checked]:bg-black data-[state=unchecked]:bg-black/50' />
@@ -136,6 +140,11 @@ const Creation = () => {
                         </div>
                         {/* More Options */}
                         <Settings />
+                        <Button
+                        onClick={()=>{
+                            driverObj.drive()
+                        }}
+                        className='bg-blue text-white font-semibold hover:bg-blue'>Take a tour</Button>
                     </aside>
                 </div>
 

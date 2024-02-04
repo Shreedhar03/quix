@@ -1,5 +1,12 @@
 import { Switch } from '../ui/switch'
 import { InfoIcon } from 'lucide-react'
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 const Settings = () => {
     const options = ['Randomize question order', 'Reveal correct answer', 'Show Leaderboard after each question']
@@ -14,7 +21,16 @@ const Settings = () => {
                                 {option}
                             </p>
                         </div>
-                        <InfoIcon className='text-slate-700' />
+                        <TooltipProvider>
+                            <Tooltip delayDuration={100}>
+                                <TooltipTrigger>
+                                    <InfoIcon className='text-slate-700' />
+                                </TooltipTrigger>
+                                <TooltipContent align='end'>
+                                    <p className='max-w-80'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum aut necessitatibus molestias debitis magnam. Velit omnis doloremque earum tenetur asperiores.</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                     </div>
                 ))
             }
