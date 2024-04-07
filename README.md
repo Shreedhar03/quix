@@ -1,5 +1,7 @@
 # QuiX
 
+> ⚠️ This project is now being developed at [https://github.com/quixhq](https://github.com/quixhq)
+
 ## Overview
 QuiX is a web-based application that allows users to create and participate in real-time quizzes and polls. It provides an interactive and engaging platform for conducting quizzes and gathering opinions from a large audience.
 
